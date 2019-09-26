@@ -1,9 +1,7 @@
 # Counter
 
 ![Language: Java](https://img.shields.io/badge/language-Java-orange.svg?style=flat-square)
-![Version: 1.0](https://img.shields.io/badge/current_version-0.1-orange.svg?style=flat-square)
-
-A set of tools for calculating cosmological constraints on decoupled MeV-scale particles
+![Version: 1.0](https://img.shields.io/badge/current_version-1.0-orange.svg?style=flat-square)
 
 ## How to build?
 
