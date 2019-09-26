@@ -167,11 +167,11 @@ class Counter extends JFrame {
                 sDiscussionField.setEditable(false);
                 sReminderField.setEditable(false);
 
-                String[] presetValues = selectedValue.split("-");
+                String[] presetValues = selectedValue.split("\\+");
 
                 sTalkField.setText(presetValues[0]);
                 sDiscussionField.setText(presetValues[1]);
-                sReminderField.setText(presetValues[2]);
+                sReminderField.setText(presetValues[1]);
 
                 if (sRunner == null) { reset(); }
             }
@@ -267,7 +267,7 @@ class Counter extends JFrame {
         sPresetLabel.setForeground(Color.white);
 
         sPresetBox = new JComboBox(new String[]{
-            "Custom", "25-5-5", "16-4-4", "12-3-3", "8-2-2"
+            "Custom", "25+5", "16+4", "12+3", "8+2"
         });
         sPresetBox.setFont(new Font("Serif", Font.PLAIN, 25));
         sPresetBox.setOpaque(true);
