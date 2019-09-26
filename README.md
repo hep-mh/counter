@@ -5,7 +5,7 @@
 
 ## How to build?
 
-The build process has been tested with OpenJDK version 11 and higher.
+The build process has been tested on Ubuntu, Windows and macOS using OpenJDK version 11 (and higher).
 
 ### Ubuntu, Debian
 
