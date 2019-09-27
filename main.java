@@ -78,11 +78,6 @@ class Counter extends JFrame {
                 startTalk();
                 // Loop until the threads gets interrupted
                 while(true) {
-                    // Play a reminder, when there is only a certain amount
-                    // of talk time left
-                    if (sTimer == sReminderTimeInSec && sFlag == 0) {
-                        if (sReminderBox.isSelected()) playSound();
-                    }
                     // Switch to discussion once the timer runs out for
                     // the first time
                     if (sTimer == 0 && sFlag == 0) {
@@ -92,6 +87,11 @@ class Counter extends JFrame {
                     // the second time
                     if (sTimer == 0 && sFlag == 1) {
                         startOvertime();
+                    }
+                    // Play a reminder, when there is only a certain amount
+                    // of talk time left
+                    if (sTimer == sReminderTimeInSec && sFlag == 0) {
+                        if (sReminderBox.isSelected()) playSound();
                     }
 
                     // UPDATE THE TIME ////////////////////////////////////////
