@@ -31,7 +31,7 @@ class Counter extends JFrame {
             sFlag = 0;
         }
 
-        public void playSound() {
+        private void playSound() {
             try {
                 InputStream audio = getClass().getResourceAsStream("res/ding.wav");
                 InputStream buffer = new BufferedInputStream(audio);
@@ -45,7 +45,7 @@ class Counter extends JFrame {
             }
         }
 
-        public void startTalk() {
+        private void startTalk() {
             sDisplayLabel.setForeground(Color.green);
             sModeLabel.setText("Talk");
 
@@ -53,7 +53,7 @@ class Counter extends JFrame {
             sFlag = 0;
         }
 
-        public void startDiscussion() {
+        private void startDiscussion() {
             playSound();
 
             sModeLabel.setText("Discussion");
@@ -63,7 +63,7 @@ class Counter extends JFrame {
             sFlag = 1;
         }
 
-        public void startOvertime() {
+        private void startOvertime() {
             playSound();
 
             sModeLabel.setText("Overtime");
@@ -74,31 +74,36 @@ class Counter extends JFrame {
         }
 
         public void run() {
-            startTalk();
-
             try {
+                startTalk();
+                // Loop until the threads gets interrupted
                 while(true) {
-                    // Switch to discussion once the timer runs out for the first time
+                    // Play a reminder, when there is only a certain amount
+                    // of talk time left
+                    if (sTimer == sReminderTimeInSec && sFlag == 0) {
+                        if (sReminderBox.isSelected()) playSound();
+                    }
+                    // Switch to discussion once the timer runs out for
+                    // the first time
                     if (sTimer == 0 && sFlag == 0) {
                         startDiscussion();
                     }
-                    // Switch to overtime once the timer runs out for the second time
+                    // Switch to overtime once the timer runs out for
+                    // the second time
                     if (sTimer == 0 && sFlag == 1) {
                         startOvertime();
                     }
-                    // Play reminder if the checkbox is checked
-                    if (sTimer == sReminderTimeInSec && sFlag == 0 && sReminderBox.isSelected()) {
-                        playSound();
-                    }
 
-                    // For talk and discussion 'count down', for overtime 'count up'
+                    // UPDATE THE TIME ////////////////////////////////////////
+                    // For talk/discussion 'count down', for overtime 'count up'
                     sTimer -= (sFlag < 2) ? 1 : -1;
 
                     // Recalculate the remaining time...
                     int minutes = (int)(sTimer / 60.);
                     int seconds = sTimer - minutes*60;
 
-                    // ... and onvert it to  string (+ add leading zeros if necessary)
+                    // ... and convert it to a string, thereby potentially
+                    // adding the leading zero
                     String minutesAsStr = (minutes > 9) ?
                         Integer.toString(minutes) : "0" + Integer.toString(minutes);
                     String secondsAsStr = (seconds > 9) ?
@@ -109,6 +114,7 @@ class Counter extends JFrame {
 
                     // Sleep for 1000ms = 1s
                     Thread.sleep(1000);
+                    ///////////////////////////////////////////////////////////
                 }
             } catch (InterruptedException e) {}
         }

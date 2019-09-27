@@ -41,4 +41,4 @@ which afterwards can be executed via
 
 ### macOS
 
-coming soon
+coming soon (maybe...)
