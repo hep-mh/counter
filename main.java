@@ -4,6 +4,8 @@ import java.awt.event.*;
 import javax.sound.sampled.*;
 import java.io.*;
 
+import com.formdev.flatlaf.FlatDarculaLaf;
+
 class Counter extends JFrame {
 
     private JLabel sModeLabel, sDisplayLabel, sTalkLabel, sDiscussionLabel, sPresetLabel;
@@ -14,6 +16,10 @@ class Counter extends JFrame {
     private JComboBox sPresetBox;
 
     private Runner sRunner = null;
+
+    private final Color green  = Color.decode("#4caf50");
+    private final Color orange = Color.decode("#ff9800");
+    private final Color red    = Color.decode("#f44336");
 
     //private int sTotalOvertime = 0;
 
@@ -33,7 +39,7 @@ class Counter extends JFrame {
 
         private void playSound() {
             try {
-                InputStream audio = getClass().getResourceAsStream("res/ding.wav");
+                InputStream audio = getClass().getResourceAsStream("assets/ding.wav");
                 InputStream buffer = new BufferedInputStream(audio);
 
                 Clip clip = AudioSystem.getClip();
@@ -46,7 +52,7 @@ class Counter extends JFrame {
         }
 
         private void startTalk() {
-            sDisplayLabel.setForeground(Color.green);
+            sDisplayLabel.setForeground(green);
             sModeLabel.setText("Talk");
 
             sTimer = sTalkTimeInSec + 1;
@@ -57,7 +63,7 @@ class Counter extends JFrame {
             playSound();
 
             sModeLabel.setText("Discussion");
-            sDisplayLabel.setForeground(Color.yellow);
+            sDisplayLabel.setForeground(orange);
 
             sTimer = sDiscussionTimeInSec + 1;
             sFlag = 1;
@@ -67,7 +73,7 @@ class Counter extends JFrame {
             playSound();
 
             sModeLabel.setText("Overtime");
-            sDisplayLabel.setForeground(Color.red);
+            sDisplayLabel.setForeground(red);
 
             sTimer = 0;
             sFlag = 2;
@@ -145,7 +151,7 @@ class Counter extends JFrame {
             String minutesStr = (minutes > 9) ? Integer.toString(minutes) : "0" + Integer.toString(minutes);
 
             sDisplayLabel.setText(minutesStr + ":00");
-            sDisplayLabel.setForeground(Color.green);
+            sDisplayLabel.setForeground(green);
         }
 
         private void start() {
@@ -184,7 +190,6 @@ class Counter extends JFrame {
         }
 
         public void actionPerformed(ActionEvent event) {
-
             if(event.getSource() == sStartButton) {
                 start(); // 'Start' button clicked
             } else if(event.getSource() == sResetButton) {
@@ -198,87 +203,107 @@ class Counter extends JFrame {
     public Counter() {
         super("Counter");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1500, 1000);
+        setSize(1400, 800);
         setTitle("Counter");
 
+        // REGISTER FONT //////////////////////////////////////////////////////
+        Font roboto = null;
+        try {
+            roboto = Font.createFont(Font.TRUETYPE_FONT, new File("assets/Roboto-Regular.ttf"));
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+         
+            ge.registerFont(roboto);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch(FontFormatException e) {
+            e.printStackTrace();
+        }
+
+        Color backgroundColor = Color.decode("#1f1f1f");
         // SETUP APP LAYOUT ///////////////////////////////////////////////////
         sModeLabel = new JLabel("\nIdle", SwingConstants.CENTER);
-        sModeLabel.setBackground(Color.black);
+        sModeLabel.setBackground(backgroundColor);
         sModeLabel.setForeground(Color.white);
         sModeLabel.setOpaque(true);
-        sModeLabel.setFont(new Font("Serif", Font.PLAIN, 200));
+        sModeLabel.setFont(roboto.deriveFont(200f));
 
         sDisplayLabel = new JLabel("12:00", SwingConstants.CENTER);
-        sDisplayLabel.setBackground(Color.black);
-        sDisplayLabel.setForeground(Color.green);
+        sDisplayLabel.setBackground(backgroundColor);
+        sDisplayLabel.setForeground(green);
         sDisplayLabel.setOpaque(true);
-        sDisplayLabel.setFont(new Font("Serif", Font.PLAIN, 350));
+        sDisplayLabel.setFont(roboto.deriveFont(350f));
 
         sControlPanel = new JPanel();
         sControlPanel.setBackground(Color.black);
 
         sTalkLabel = new JLabel("  Talk [min]: ");
-        sTalkLabel.setFont(new Font("Serif", Font.PLAIN, 25));
-        sTalkLabel.setBackground(Color.black);
+        sTalkLabel.setFont(roboto.deriveFont(25f));
+        sTalkLabel.setBackground(backgroundColor);
         sTalkLabel.setForeground(Color.white);
 
         sDiscussionLabel = new JLabel("  Discussion [min]: ");
-        sDiscussionLabel.setFont(new Font("Serif", Font.PLAIN, 25));
-        sDiscussionLabel.setBackground(Color.black);
+        sDiscussionLabel.setFont(roboto.deriveFont(25f));
+        sDiscussionLabel.setBackground(backgroundColor);
         sDiscussionLabel.setForeground(Color.white);
 
         sStartButton = new JButton("Start");
-        sStartButton.setFont(new Font("Sans Serif", Font.PLAIN, 25));
+        sStartButton.setFont(roboto.deriveFont(25f));
         sStartButton.setOpaque(true);
-        sStartButton.setBackground(Color.black);
+        sStartButton.setBackground(backgroundColor);
         sStartButton.setForeground(Color.white);
+        sStartButton.putClientProperty( "JButton.buttonType", "roundRect" );
 
         sResetButton = new JButton("Reset");
-        sResetButton.setFont(new Font("Sans Serif", Font.PLAIN, 25));
+        sResetButton.setFont(roboto.deriveFont(25f));
         sResetButton.setOpaque(true);
-        sResetButton.setBackground(Color.black);
+        sResetButton.setBackground(backgroundColor);
         sResetButton.setForeground(Color.white);
+        sResetButton.putClientProperty( "JButton.buttonType", "roundRect" );
 
         sTalkField = new JTextField("12", 3);
         sTalkField.setHorizontalAlignment(SwingConstants.CENTER);
-        sTalkField.setFont(new Font("Serif", Font.PLAIN, 30));
+        sTalkField.setFont(roboto.deriveFont(30f));
         sTalkField.setOpaque(true);
-        sTalkField.setBackground(Color.black);
+        sTalkField.setBackground(backgroundColor);
         sTalkField.setForeground(Color.white);
+        sTalkField.putClientProperty( "JComponent.roundRect", true );
 
         sDiscussionField = new JTextField("3", 3);
         sDiscussionField.setHorizontalAlignment(SwingConstants.CENTER);
-        sDiscussionField.setFont(new Font("Serif", Font.PLAIN, 30));
+        sDiscussionField.setFont(roboto.deriveFont(30f));
         sDiscussionField.setOpaque(true);
-        sDiscussionField.setBackground(Color.black);
+        sDiscussionField.setBackground(backgroundColor);
         sDiscussionField.setForeground(Color.white);
+        sDiscussionField.putClientProperty( "JComponent.roundRect", true );
 
         sReminderField = new JTextField("3", 3);
         sReminderField.setHorizontalAlignment(SwingConstants.CENTER);
-        sReminderField.setFont(new Font("Serif", Font.PLAIN, 30));
+        sReminderField.setFont(roboto.deriveFont(30f));
         sReminderField.setOpaque(true);
-        sReminderField.setBackground(Color.black);
+        sReminderField.setBackground(backgroundColor);
         sReminderField.setForeground(Color.white);
+        sReminderField.putClientProperty( "JComponent.roundRect", true );
 
         sReminderBox = new JCheckBox(" Reminder [min] ", true);
         sReminderBox.setHorizontalTextPosition(SwingConstants.LEFT);
-        sReminderBox.setFont(new Font("Serif", Font.PLAIN, 25));
+        sReminderBox.setFont(roboto.deriveFont(25f));
         sReminderBox.setOpaque(true);
-        sReminderBox.setBackground(Color.black);
+        sReminderBox.setBackground(backgroundColor);
         sReminderBox.setForeground(Color.white);
 
         sPresetLabel = new JLabel("  Presets: ");
-        sPresetLabel.setFont(new Font("Serif", Font.PLAIN, 25));
-        sPresetLabel.setBackground(Color.black);
+        sPresetLabel.setFont(roboto.deriveFont(25f));
+        sPresetLabel.setBackground(backgroundColor);
         sPresetLabel.setForeground(Color.white);
 
         sPresetBox = new JComboBox(new String[]{
             "Custom", "25+5", "16+4", "12+3", "8+2"
         });
-        sPresetBox.setFont(new Font("Serif", Font.PLAIN, 25));
+        sPresetBox.setFont(roboto.deriveFont(25f));
         sPresetBox.setOpaque(true);
-        sPresetBox.setBackground(Color.black);
+        sPresetBox.setBackground(backgroundColor);
         sPresetBox.setForeground(Color.white);
+        sPresetBox.putClientProperty( "JComponent.roundRect", true );
 
         sControlPanel.add(sStartButton);
         sControlPanel.add(sResetButton);
@@ -290,6 +315,7 @@ class Counter extends JFrame {
         sControlPanel.add(sReminderField);
         sControlPanel.add(sPresetLabel);
         sControlPanel.add(sPresetBox);
+        sControlPanel.setBackground(backgroundColor);
 
         sStartButton.addActionListener(new ButtonListener());
         sResetButton.addActionListener(new ButtonListener());
@@ -305,15 +331,11 @@ class Counter extends JFrame {
 class Main {
     public static void main(String args[]) {
         // Set Look & Feel
-        try {
-            UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
-        }
-        catch (Exception e) {
-            System.err.println(e.getMessage());
-        }
+        FlatDarculaLaf.setup();
 
         Counter sCounter = new Counter();
-        sCounter.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        //sCounter.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        sCounter.setMinimumSize(new Dimension(1400, 800));
         sCounter.setVisible(true);
      }
 }
