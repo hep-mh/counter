@@ -1,10 +1,29 @@
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-import javax.sound.sampled.*;
-import java.io.*;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
-import com.formdev.flatlaf.FlatDarculaLaf;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.GraphicsEnvironment;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.InputStream;
+import java.io.IOException;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
 class Counter extends JFrame {
 
@@ -326,16 +345,4 @@ class Counter extends JFrame {
         getContentPane().add(BorderLayout.PAGE_END, sControlPanel);
         ///////////////////////////////////////////////////////////////////////
     }
-}
-
-class Main {
-    public static void main(String args[]) {
-        // Set Look & Feel
-        FlatDarculaLaf.setup();
-
-        Counter sCounter = new Counter();
-        //sCounter.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        sCounter.setMinimumSize(new Dimension(1400, 800));
-        sCounter.setVisible(true);
-     }
 }
