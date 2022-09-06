@@ -1,12 +1,6 @@
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
+package com.hepmh;
 
+// AWT
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
@@ -16,11 +10,23 @@ import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// Swing
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+
+// IO
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.InputStream;
 import java.io.IOException;
 
+// Sound
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -36,11 +42,9 @@ class Counter extends JFrame {
 
     private Runner sRunner = null;
 
-    private final Color green  = Color.decode("#4caf50");
-    private final Color orange = Color.decode("#ff9800");
-    private final Color red    = Color.decode("#f44336");
-
-    //private int sTotalOvertime = 0;
+    private final Color GREEN  = Color.decode("#4caf50");
+    private final Color ORANGE = Color.decode("#ff9800");
+    private final Color RED    = Color.decode("#f44336");
 
     private class Runner implements Runnable {
         private Thread sThread;
@@ -71,7 +75,7 @@ class Counter extends JFrame {
         }
 
         private void startTalk() {
-            sDisplayLabel.setForeground(green);
+            sDisplayLabel.setForeground(GREEN);
             sModeLabel.setText("Talk");
 
             sTimer = sTalkTimeInSec + 1;
@@ -82,7 +86,7 @@ class Counter extends JFrame {
             playSound();
 
             sModeLabel.setText("Discussion");
-            sDisplayLabel.setForeground(orange);
+            sDisplayLabel.setForeground(ORANGE);
 
             sTimer = sDiscussionTimeInSec + 1;
             sFlag = 1;
@@ -92,7 +96,7 @@ class Counter extends JFrame {
             playSound();
 
             sModeLabel.setText("Overtime");
-            sDisplayLabel.setForeground(red);
+            sDisplayLabel.setForeground(RED);
 
             sTimer = 0;
             sFlag = 2;
@@ -170,7 +174,7 @@ class Counter extends JFrame {
             String minutesStr = (minutes > 9) ? Integer.toString(minutes) : "0" + Integer.toString(minutes);
 
             sDisplayLabel.setText(minutesStr + ":00");
-            sDisplayLabel.setForeground(green);
+            sDisplayLabel.setForeground(GREEN);
         }
 
         private void start() {
@@ -248,7 +252,7 @@ class Counter extends JFrame {
 
         sDisplayLabel = new JLabel("12:00", SwingConstants.CENTER);
         sDisplayLabel.setBackground(backgroundColor);
-        sDisplayLabel.setForeground(green);
+        sDisplayLabel.setForeground(GREEN);
         sDisplayLabel.setOpaque(true);
         sDisplayLabel.setFont(roboto.deriveFont(350f));
 

@@ -1,6 +1,12 @@
+package com.hepmh;
+
+// AWT
 import java.awt.Dimension;
 
+// FlatLaf
 import com.formdev.flatlaf.FlatDarculaLaf;
+
+import com.hepmh.Counter;
 
 class Main {
     public static void main(String args[]) {

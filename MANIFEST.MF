@@ -1,4 +1,4 @@
 Manifest-Version: 1.0
 Created-By: Marco Hufnagel
-Main-Class: Main
-Class-Path: lib/flatlaf-2.4.jar
+Main-Class: com.hepmh.Main
+Class-Path: com.hepmh lib/flatlaf-2.4.jar
