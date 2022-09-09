@@ -13,11 +13,11 @@ First install the OpenJDK version 11 (or higher) via the command
 
     sudo apt install openjdk-11-jdk
 
-Afterwards an executable .jar file can be build using the following set of commands
+Afterwards an executable .jar file can be build using the following command
 
-    javac main.java
-    jar cfm counter.jar MANIFEST.MF *.class res/*
-    chmod 755 counter.jar
+    ./build.sh
+
+Which will be created in the build/ folder.
 
 ### Windows
 
@@ -29,15 +29,6 @@ On Windows it is recommended to first install scoop and to set up an appropriate
 Afterwards install the OpenJDK version 11 (or higher) via the command
 
     scoop install openjdk11
-
-Using this setup, it is possible to build a .jar file by running
-
-    javac main.java
-    jar cfm counter.jar MANIFEST.MF *.class res/*
-
-which afterwards can be executed via
-
-    java -jar counter.jar
 
 ### macOS
 
