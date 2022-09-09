@@ -23,6 +23,7 @@ import javax.swing.SwingConstants;
 // IO
 import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.IOException;
 
@@ -62,7 +63,7 @@ class Counter extends JFrame {
 
         private void playSound() {
             try {
-                InputStream audio = getClass().getResourceAsStream("assets/ding.wav");
+                InputStream audio = new FileInputStream(new File("assets/ding.wav").getAbsolutePath());
                 InputStream buffer = new BufferedInputStream(audio);
 
                 Clip clip = AudioSystem.getClip();
